@@ -3,13 +3,15 @@ import Loda from 'lodash'
 import Product from "./Product";
 import axios from 'axios';
 
+
 class Page extends Component {
     constructor(props) {
         super(props);
         this.state = {
             products: [],
             selectedProduct: null,
-            apiUrl: "http://smktesting.herokuapp.com/"
+            apiUrl: "http://smktesting.herokuapp.com/",
+            comments: []
         }
     }
     componentDidMount() {
@@ -20,6 +22,17 @@ class Page extends Component {
                     products: res.data
                 })
             })
+            axios.get(this.state.apiUrl + 'api/reviews/1')
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    ...this.state,
+                    comments: res.data
+                    
+                })
+            }
+
+            )
     }
 
 
@@ -32,7 +45,7 @@ class Page extends Component {
     }
 
     render() {
-        const { products, selectedProduct, apiUrl } = this.state;
+        const { products, selectedProduct, apiUrl,comments } = this.state;
         return (
             <Fragment>
                 <nav>
@@ -51,10 +64,11 @@ class Page extends Component {
                     </ul>
                 </nav>
                 {
-                    selectedProduct ? <Product product={selectedProduct} apiUrl={apiUrl} /> : ''
-
+                    selectedProduct ? <Product product={selectedProduct} apiUrl={apiUrl} comments={comments} /> : ''
+                    
                 }
             </Fragment>
+            
         )
 
     }
