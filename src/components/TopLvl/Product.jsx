@@ -1,11 +1,11 @@
 import React from 'react';
 import Stars from "./Stars";
 
-const Product = ({ product, apiUrl,comments }) => {
-            
-    
-    console.log(comments+"comment")
-    console.log(product+"produc")
+const Product = ({ product, apiUrl, comments }) => {
+
+
+    console.log(comments + "comment")
+    console.log(product + "produc")
 
 
     return (
@@ -19,15 +19,26 @@ const Product = ({ product, apiUrl,comments }) => {
                 <p>{product.text}</p>
             </div>
             <div>
-            <Stars />
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Click</button>
-            <div className='row'>
-                <h3>Reviews</h3>
-                <ul>
-                    <li>{comments.text}</li>
-                </ul>
-            </div>
+                <Stars />
+                <textarea className="" id="" cols="30" rows="10"></textarea>
+                <button>Click</button>
+                <div className='row'>
+                    <h3>Reviews</h3>
+                    <ul className="review-list list-group">
+                    {
+
+                        comments.map(el => {
+                            return (
+                                <li className="list-group-item" key={el.id}>
+                                    <p>{el.created_by.username} at {el.created_at}</p>
+                                    <p>Rate:{el.rate}</p>
+                                    <span>{el.text}</span>
+                                </li>
+                            )
+                        })
+                    }
+                    </ul>
+                </div>
             </div>
         </div>
     )

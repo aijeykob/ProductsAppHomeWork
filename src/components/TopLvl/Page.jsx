@@ -3,7 +3,6 @@ import Loda from 'lodash'
 import Product from "./Product";
 import axios from 'axios';
 
-
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -22,13 +21,13 @@ class Page extends Component {
                     products: res.data
                 })
             })
-            axios.get(this.state.apiUrl + 'api/reviews/1')
+        axios.get(this.state.apiUrl + 'api/reviews/1')
             .then(res => {
                 console.log(res.data)
                 this.setState({
                     ...this.state,
                     comments: res.data
-                    
+
                 })
             }
 
@@ -36,42 +35,42 @@ class Page extends Component {
     }
 
 
-    menuClickProduct(id) {
-        const selectedProduct = Loda.findLast(this.state.products, el => el.id == id)
-        this.setState({
-            ...this.state,
-            selectedProduct: selectedProduct
-        })
-    }
+menuClickProduct(id) {
+    const selectedProduct = Loda.findLast(this.state.products, el => el.id == id)
+    this.setState({
+        ...this.state,
+        selectedProduct: selectedProduct
+    })
+}
 
-    render() {
-        const { products, selectedProduct, apiUrl,comments } = this.state;
-        return (
-            <Fragment>
-                <nav>
-                    <ul>
-                        {
-                            products.map(el => {
-                                return (
-                                    <li key={el.id}
-                                        onClick={() => { this.menuClickProduct(el.id) }}
-                                    >{el.title}</li>
-                                )
-                            })
+render() {
+    const { products, selectedProduct, apiUrl, comments } = this.state;
+    return (
+        <Fragment>
+            <nav>
+                <ul>
+                    {
+                        products.map(el => {
+                            return (
+                                <li key={el.id}
+                                    onClick={() => { this.menuClickProduct(el.id) }}
+                                >{el.title}</li>
+                            )
+                        })
 
-                        }
+                    }
 
-                    </ul>
-                </nav>
-                {
-                    selectedProduct ? <Product product={selectedProduct} apiUrl={apiUrl} comments={comments} /> : ''
-                    
-                }
-            </Fragment>
-            
-        )
+                </ul>
+            </nav>
+            {
+                selectedProduct ? <Product product={selectedProduct} apiUrl={apiUrl} comments={comments} /> : ''
 
-    }
+            }
+        </Fragment>
+
+    )
+
+}
 }
 
 export default Page;
