@@ -2,6 +2,7 @@ import React, { Fragment, Component } from "react";
 import Loda from 'lodash'
 import Product from "./Product";
 import axios from 'axios';
+import Registration from "./Registration";
 
 class Page extends Component {
     constructor(props) {
@@ -21,32 +22,37 @@ class Page extends Component {
                     products: res.data
                 })
             })
-        axios.get(this.state.apiUrl + 'api/reviews/1')
-            .then(res => {
-                console.log(res.data)
-                this.setState({
-                    ...this.state,
-                    comments: res.data
 
-                })
-            }
-
-            )
     }
 
 
 menuClickProduct(id) {
+    axios.get(this.state.apiUrl + 'api/reviews/'+id)
+    .then(res => {
+        console.log(res.data)
+        this.setState({
+            ...this.state,
+            comments: res.data
+
+        })
+    }
+
+    )
     const selectedProduct = Loda.findLast(this.state.products, el => el.id == id)
+    
     this.setState({
         ...this.state,
-        selectedProduct: selectedProduct
+        selectedProduct: selectedProduct,
+        
     })
+    
 }
 
 render() {
     const { products, selectedProduct, apiUrl, comments } = this.state;
     return (
         <Fragment>
+            <Registration />
             <nav>
                 <ul>
                     {
