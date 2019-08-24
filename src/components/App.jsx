@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from './organism/Page'
+import Page from './midLvl/Page'
 
 const App = () => {
   return (

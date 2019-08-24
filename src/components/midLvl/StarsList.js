@@ -1,5 +1,5 @@
 import React from 'react';
-import Star from "../moleculas/Star";
+import Star from "../lowLvl/Star";
 
 const StarsList = ({item}) => (
     <div>
